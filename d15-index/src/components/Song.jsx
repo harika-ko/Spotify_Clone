@@ -6,15 +6,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { HeartFill, Heart } from "react-bootstrap-icons";
 import { addLike, removeLike } from "../redux/actions";
 
-const mapStateToProps = (state) => ({});
+/*const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
     addSongToSelected: (songSelected) => {
         dispatch(addSongToSelectedAction(songSelected));
     },
-});
+});*/
 
-const Song = ({ track, addSongToSelected }) => {
+const Song = ({ track }) => {
 
     const songs = useSelector((state) => state.likes.songs);
 
@@ -27,7 +27,11 @@ const Song = ({ track, addSongToSelected }) => {
     };
 
     return (
-        <div className="py-3 trackHover">
+        <div className="py-3 trackHover"
+
+            onClick={() => {
+                dispatch(addSongToSelectedAction(track));
+            }}>
 
             {isLike ? (
                 <HeartFill color="red" onClick={toggleLike} />
@@ -36,9 +40,7 @@ const Song = ({ track, addSongToSelected }) => {
             )}
 
             <span className="card-title trackHover px-3" style={{ color: "white" }}
-                onClick={() => {
-                    addSongToSelected(track);
-                }}>
+            >
                 {track.title}
             </span>
             <small className="duration" style={{ color: "white" }}>
@@ -51,6 +53,6 @@ const Song = ({ track, addSongToSelected }) => {
     )
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Song);
+export default Song;
 
 
